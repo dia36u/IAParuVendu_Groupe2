@@ -1,18 +1,28 @@
-import scrapy
-from ..items import ParuVenduItem
+import requests
+from requests import get
+from bs4 import BeautifulSoup
+import pandas as pd
+import numpy as np
 
-class ParuVenduSpider(scrapy.Spider):
-    name = "paru_vendu"
-    start_urls = [
-        'https://www.paruvendu.fr/a/voiture-occasion/audi/a3/'
-    ]
+from time import sleep
+from random import randint
 
-    def parse(self, response):
-        items = ParuVenduItem()
-        nom_voiture = response.css('h3::text').extract()
-        prix_vendeur = response.css('div class=ergov3-priceannonce-auto::text').extract()
-        items['product_name'] = nom_voiture
-        items['product_price'] = prix_vendeur
-        yield items
+listes_annonces = []
+url="https://www.paruvendu.fr/a/voiture-occasion/audi/?p="
+
+for i in range(1,5):
+
+
+    page = requests.get(url+str(i))
+
+    soup = BeautifulSoup(page.text, 'html.parser')
+
+    divs= soup.find_all('div', class_='lazyload_bloc ergov3-annonce ergov3-annonceauto')
+    for div in divs:
+        listes_annonces.append(div.find('a').get("href"))
+
+print(len(listes_annonces))
+
+
 
 
