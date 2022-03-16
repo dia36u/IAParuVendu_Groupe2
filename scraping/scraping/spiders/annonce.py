@@ -8,9 +8,11 @@ import scrapy
 #
 def normalize_whitespace(str):
             import re
+            # n'applique pas de mise en forme si les données sont null
+            if str == None : return
             str = str.strip()
-            str = re.sub(r'\s+', ' ', str)
             # \s permet de match "\t\n\r\f\v"
+            str = re.sub(r'\s+', ' ', str)
             return str
 class AnnoncesSpider(scrapy.Spider):
     name = "Annonces"  
