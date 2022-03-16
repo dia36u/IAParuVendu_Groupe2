@@ -23,15 +23,15 @@ class AnnoncesSpider(scrapy.Spider):
     # start_urls va acueillir à terme, la liste de toutes les pages au sein desquelles nous allons récupérer
     # les annonces de voiture en vente sur le site ParuVendu
     
-    # start_urls = splitURL(r"urls.txt")
+    start_urls = splitURL(r"urls.txt")
 
-    start_urls = [
-        'https://www.paruvendu.fr/a/voiture-occasion/audi/q5/1260804894A1KVVOAUQ5',
-        'https://www.paruvendu.fr/a/voiture-occasion/audi/a5/1260800372A1KVVOAUA5',
-        'https://www.paruvendu.fr/a/voiture-occasion/audi/a6/1251779290A1KVVOAUA6',
-        'https://www.paruvendu.fr/a/voiture-occasion/citroen/2-cv-dyane/1245883097A1KVVOCI2CV',
-        'https://www.paruvendu.fr/a/voiture-occasion/citroen/c3/1260769359A1KVVOCIC3'
-    ]
+    # start_urls = [
+    #     'https://www.paruvendu.fr/a/voiture-occasion/audi/q5/1260804894A1KVVOAUQ5',
+    #     'https://www.paruvendu.fr/a/voiture-occasion/audi/a5/1260800372A1KVVOAUA5',
+    #     'https://www.paruvendu.fr/a/voiture-occasion/audi/a6/1251779290A1KVVOAUA6',
+    #     'https://www.paruvendu.fr/a/voiture-occasion/citroen/2-cv-dyane/1245883097A1KVVOCI2CV',
+    #     'https://www.paruvendu.fr/a/voiture-occasion/citroen/c3/1260769359A1KVVOCIC3'
+    # ]
 
     # parse_page1 va permettre de récupérer la première vague d'information sur l'annonce du véhicule
     # Ces infos seront stockées dans le dictionnaire car_infos
@@ -55,10 +55,13 @@ class AnnoncesSpider(scrapy.Spider):
         }
 
         # Récupération du lien vers la fiche technique du véhicule
-        next_page = response.css("a.linkToFT").attrib["href"]
-        if next_page is not None:
-            next_page="https://www.paruvendu.fr"+next_page
-            yield scrapy.Request(next_page, callback=self.parse_page2, meta={'item': car_infos})
+        try:
+            next_page = response.css("a.linkToFT").attrib["href"]
+            if next_page is not None:
+                next_page="https://www.paruvendu.fr"+next_page
+                yield scrapy.Request(next_page, callback=self.parse_page2, meta={'item': car_infos})
+        except KeyError:
+            pass
 
     # parse_page2 va permettre de récupérer l'info du prix de commercialisation
     # Cette info est ajoutée à car_infos puis envoyée vers parse_page3
