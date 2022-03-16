@@ -10,6 +10,7 @@ def normalize_whitespace(str):
             import re
             str = str.strip()
             str = re.sub(r'\s+', ' ', str)
+            # \s permet de match "\t\n\r\f\v"
             return str
 class AnnoncesSpider(scrapy.Spider):
     name = "Annonces"  
@@ -17,8 +18,6 @@ class AnnoncesSpider(scrapy.Spider):
     'https://www.paruvendu.fr/a/voiture-occasion/renault/scenic-ii/1260682580A1KVVORESC2',
     'https://www.paruvendu.fr/a/voiture-occasion/bmw/serie-3/1259702633A1KVVOBMS3',
     'https://www.paruvendu.fr/a/voiture-occasion/volkswagen/tiguan/1260770746A1KVVOVWTIG',
-    'https://www.paruvendu.fr/a/voiture-occasion/bmw/serie-3/1258356486A1KVVOBMS3',
-    'https://www.paruvendu.fr/a/voiture-occasion/bmw/serie-3/1260435637A1KVVOBMS3'
     ]
 
     
