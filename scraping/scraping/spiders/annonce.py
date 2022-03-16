@@ -23,15 +23,15 @@ class AnnoncesSpider(scrapy.Spider):
     # start_urls va acueillir à terme, la liste de toutes les pages au sein desquelles nous allons récupérer
     # les annonces de voiture en vente sur le site ParuVendu
     
-    # start_urls = splitURL(r"urls.txt")
+    start_urls = splitURL(r"urls.txt")
 
-    start_urls = [
-        'https://www.paruvendu.fr/a/voiture-occasion/audi/q5/1260804894A1KVVOAUQ5',
-        'https://www.paruvendu.fr/a/voiture-occasion/audi/a5/1260800372A1KVVOAUA5',
-        'https://www.paruvendu.fr/a/voiture-occasion/audi/a6/1251779290A1KVVOAUA6',
-        'https://www.paruvendu.fr/a/voiture-occasion/citroen/2-cv-dyane/1245883097A1KVVOCI2CV',
-        'https://www.paruvendu.fr/a/voiture-occasion/citroen/c3/1260769359A1KVVOCIC3'
-    ]
+    # start_urls = [
+    #     'https://www.paruvendu.fr/a/voiture-occasion/audi/q5/1260804894A1KVVOAUQ5',
+    #     'https://www.paruvendu.fr/a/voiture-occasion/audi/a5/1260800372A1KVVOAUA5',
+    #     'https://www.paruvendu.fr/a/voiture-occasion/audi/a6/1251779290A1KVVOAUA6',
+    #     'https://www.paruvendu.fr/a/voiture-occasion/citroen/2-cv-dyane/1245883097A1KVVOCI2CV',
+    #     'https://www.paruvendu.fr/a/voiture-occasion/citroen/c3/1260769359A1KVVOCIC3'
+    # ]
 
     # parse_page1 va permettre de récupérer la première vague d'information sur l'annonce du véhicule
     # Ces infos seront stockées dans le dictionnaire car_infos
