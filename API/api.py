@@ -1,4 +1,6 @@
+from distutils.log import debug
 from traceback import print_exc
+from turtle import pd
 from flask import Flask
 from flask.views import MethodView
 import marshmallow as ma
@@ -31,11 +33,11 @@ blp = Blueprint(
 class Prediction(MethodView):
     @blp.response(PredictionPrixSchema(many=True))
     def get(self):
+        print("bonjour")
         return "bonjour"
 
 
 api.register_blueprint(blp)
 
-if __name__== "__main__":
-    app.run()
-    
+if __name__ == "__main__":
+    app.run(debug=True)
