@@ -45,19 +45,28 @@ class Car(BaseModel):
             }
         }
 
+class Prediction(BaseModel):
+    prix:int
+    class Config:
+        schema_extra = {
+            "example": {
+                "prix": "11290",
+            }
+        }
 
 @app.get('/')
 def welcome():
     """This api was made for scholar training and provide a prediction about second hand car price in France
     """
+    return
 
 
-@app.post('/prediction/')
+@app.post('/prediction/',response_model=Prediction)
 async def pred(data: Car):
     """
-    Route permettant de faire la prediction du prix d'une voiture grace a ses caracteristique
+    Make a prediction
     """
     car = pd.DataFrame(data.dict(), index=[0])
-    price = model.predict(car)
-    print(price)
-    return {'price': price[0]}
+    price = Prediction(**{"prix":model.predict(car)[0]})
+    
+    return price.dict()
